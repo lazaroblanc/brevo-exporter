@@ -1,0 +1,31 @@
+{
+  "name": "brevo-exporter",
+  "version": "1.0.0",
+  "description": "Simple exporter to expose metrics from the Brevo (formerly Sendinblue) API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazaroblanc/brevo-exporter.git"
+  },
+  "keywords": [
+    "brevo",
+    "sendinblue",
+    "exporter",
+    "prometheus"
+  ],
+  "author": "Lázaro Blanc",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/lazaroblanc/brevo-exporter/issues"
+  },
+  "homepage": "https://github.com/lazaroblanc/brevo-exporter#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
