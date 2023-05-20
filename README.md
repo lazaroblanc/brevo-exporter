@@ -27,5 +27,15 @@ services:
     environment:
       BREVO_API_KEY: 'your-brevo-api-key'
     ports:
-      - 3000:3000
+      - 9587:3000
+```
+
+### Prometheus config
+
+```
+- job_name: "brevo"
+  scrape_interval: 5m
+  static_configs:
+    - targets:
+        - docker1.home.blnc.io:9587 # brevo-exporter
 ```
