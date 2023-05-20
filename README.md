@@ -32,7 +32,7 @@ services:
 
 ### Prometheus config
 
-```
+```yaml
 - job_name: "brevo"
   scrape_interval: 5m
   static_configs:
