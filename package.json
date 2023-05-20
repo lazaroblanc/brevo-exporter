@@ -17,7 +17,7 @@
     "prometheus"
   ],
   "author": "Lázaro Blanc",
-  "license": "none",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/lazaroblanc/brevo-exporter/issues"
   },
