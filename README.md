@@ -15,7 +15,7 @@ If not already present: Generate an API key -> https://app.brevo.com/settings/ke
 ### Docker CLI
 
 ```
-docker run -e BREVO_API_KEY='your-brevo-api-key' -p 3000:3000 lazaroblanc/brevo-exporter:latest
+docker run -e BREVO_API_KEY='your-brevo-api-key' -p 3000:3000 ghcr.io/lazaroblanc/brevo-exporter:latest
 ```
 
 ### docker-compose
@@ -23,7 +23,7 @@ docker run -e BREVO_API_KEY='your-brevo-api-key' -p 3000:3000 lazaroblanc/brevo-
 ```yaml
 services:
   server:
-    image: lazaroblanc/brevo-exporter:latest
+    image: ghcr.io/lazaroblanc/brevo-exporter:latest
     environment:
       BREVO_API_KEY: 'your-brevo-api-key'
     ports:

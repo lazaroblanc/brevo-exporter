@@ -34,3 +34,7 @@ EXPOSE 3000
 
 # Run the application.
 CMD node index.js
+
+LABEL org.opencontainers.image.source=https://github.com/lazaroblanc/brevo-exporter
+LABEL org.opencontainers.image.description="Simple exporter to expose metrics from the Brevo (formerly Sendinblue) API"
+LABEL org.opencontainers.image.licenses=GPL-3.0-or-later
