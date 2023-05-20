@@ -39,3 +39,9 @@ services:
     - targets:
         - docker1.home.blnc.io:9587 # brevo-exporter
 ```
+
+## Metrics
+
+| Name               | Description                                           |
+|--------------------|-------------------------------------------------------|
+| brevo_mail_credits | Number of mail credits remaining in the Brevo account |
