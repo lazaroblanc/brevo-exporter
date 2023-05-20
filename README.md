@@ -37,5 +37,5 @@ services:
   scrape_interval: 5m
   static_configs:
     - targets:
-        - docker1.home.blnc.io:9587 # brevo-exporter
+        - localhost:9587 # brevo-exporter
 ```
