@@ -19,4 +19,4 @@ jobs:
     - name: Build the Docker image
       env:
         PACKAGE_VERSION: ${{ steps.package-version.outputs.current-version}}
-      run: docker build . --file Dockerfile --tag ghcr.io/$GITHUB_REPOSITORY:$PACKAGE_VERSION@$GITHUB_RUN_NUMBER
+      run: docker build . --file Dockerfile --tag ghcr.io/$GITHUB_REPOSITORY:$PACKAGE_VERSION_CI$GITHUB_RUN_NUMBER
