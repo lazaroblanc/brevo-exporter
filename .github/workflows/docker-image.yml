@@ -20,4 +20,4 @@ jobs:
       env:
         PACKAGE_VERSION: ${{ steps.package-version.outputs.current-version}}
         DOCKER_BUILDKIT: 1
-      run: docker build . --file Dockerfile --tag $(echo ghcr.io/${GITHUB_REPOSITORY}:${$PACKAGE_VERSION}CI${GITHUB_RUN_NUMBER}
+      run: docker build . --file Dockerfile --tag $(echo ghcr.io/${GITHUB_REPOSITORY}:${$PACKAGE_VERSION}CI${GITHUB_RUN_NUMBER})
