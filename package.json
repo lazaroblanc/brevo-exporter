@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/lazaroblanc/brevo-exporter#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
   },
   "devDependencies": {
