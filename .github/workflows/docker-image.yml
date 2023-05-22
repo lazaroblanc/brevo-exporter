@@ -1,0 +1,23 @@
+name: Build Docker Image
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+    - name: Build the Docker image
+      env:
+        PACKAGE_VERSION: ${{ steps.package-version.outputs.current-version}}
+      run: docker build . --file Dockerfile --tag $GITHUB_REPOSITORY:$PACKAGE_VERSION@$GITHUB_SHA
