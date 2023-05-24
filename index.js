@@ -56,7 +56,7 @@ async function getBrevoAccountMetrics() {
     metric += '# HELP brevo_mail_credits Number of credits remaining in the Brevo account\n';
 
     plans.forEach(plan => {
-        metric += `brevo_credits{type=${plan.type}} ${plan.credits}\n`;
+        metric += `brevo_credits{type="${plan.type}"} ${plan.credits}\n`;
     });
 
     return metric;
