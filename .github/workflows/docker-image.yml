@@ -1,23 +1,41 @@
 name: Build Docker Image
 
-on:
-  - pull_request
+on: push
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
+    permissions:
+      packages: write
+
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: get-npm-version
-      id: package-version
-      uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
 
-    - name: Build the Docker image
-      env:
-        PACKAGE_VERSION: ${{ steps.package-version.outputs.current-version}}
-        DOCKER_BUILDKIT: 1
-      run: docker build . --file Dockerfile --tag "ghcr.io/$(echo $GITHUB_REPOSITORY):$(echo $PACKAGE_VERSION)CI$(echo $GITHUB_RUN_NUMBER)"
+      - name: Set package version as environment variable
+        run: |
+          echo "PACKAGE_VERSION=${{ steps.package-version.outputs.current-version}}" >> "$GITHUB_ENV"
+
+      - name: Build the Docker image
+        run: docker buildx build --platform linux/amd64 --iidfile imagename .
+
+      - name: Tag the Docker image
+        run: |
+          docker tag $(cat imagename) ghcr.io/$GITHUB_REPOSITORY:$PACKAGE_VERSION
+          docker tag $(cat imagename) ghcr.io/$GITHUB_REPOSITORY:latest
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker images
+        run: |
+          docker push "ghcr.io/$(echo $GITHUB_REPOSITORY):$(echo $PACKAGE_VERSION)"
+          docker push "ghcr.io/$(echo $GITHUB_REPOSITORY):latest"
