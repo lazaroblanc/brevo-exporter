@@ -1,6 +1,6 @@
 {
   "name": "brevo-exporter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple exporter to expose metrics from the Brevo (formerly Sendinblue) API",
   "main": "index.js",
   "scripts": {
