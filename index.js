@@ -1,25 +1,38 @@
-const express = require('express');
+require('dotenv').config()
+
 const http = require('http');
-const app = express();
 const port = 3000;
 
-app.get('/metrics', async (req, res) => {
-    let metrics = '';
-    metrics += await getBrevoAccountMetrics();
+const requestHandler = async (request, response) => {
+    switch (request.url) {
+        case '/metrics':
+            response.writeHead(200, {
+                'Content-Type': 'text/plain',
+                'Cache-Control': 'no-cache'
+            });
 
-    res.contentType('text/plain');
-    res.header('Cache-Control', 'no-cache');
-    res.send(metrics);
-});
+            response.write(await getBrevoAccountMetrics());
+            response.end();
+            break;
+        default:
+            response.end('<a href="/metrics">Metrics</a>');
+            break;
+    }
+};
 
-app.listen(port, () => {
-    // terminate the server if environment variable BREVO_API_KEY is not set
+const server = http.createServer(requestHandler);
+
+server.listen(port, (err) => {
+    if (err) {
+        return console.log('Error starting webserver', err);
+    }
+
     if (!process.env.BREVO_API_KEY) {
         console.error('BREVO_API_KEY environment variable is not set');
         process.exit(1);
     }
 
-    console.log(`Listening at http://localhost:${port}`);
+    console.log(`Webserver is listening on http://localhost:${port}`);
 });
 
 async function getBrevoAccountMetrics() {
@@ -32,14 +45,19 @@ async function getBrevoAccountMetrics() {
     });
     const jsonData = await response.json();
 
-    let plan = jsonData.plan.find((plan) => {
-        return plan.type === 'free' && plan.creditsType == 'sendLimit';
+    console.log(jsonData);
+
+    let plans = jsonData.plan.filter((plan) => {
+        return plan.creditsType == 'sendLimit';
     })
 
     let metric = '';
     metric += '# TYPE brevo_mail_credits gauge\n';
     metric += '# HELP brevo_mail_credits Number of credits remaining in the Brevo account\n';
-    metric += 'brevo_mail_credits{} ' + plan.credits + '\n';
+
+    plans.forEach(plan => {
+        metric += `brevo_credits{type=${plan.type}} ${plan.credits}\n`;
+    });
 
     return metric;
 }
