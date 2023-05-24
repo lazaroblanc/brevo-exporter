@@ -42,6 +42,6 @@ services:
 
 ## Metrics
 
-| Name          | Description                                      |
-|---------------|--------------------------------------------------|
-| brevo_credits | Number of credits remaining in the Brevo account |
+| Name          | Description                                               |
+|---------------|-----------------------------------------------------------|
+| brevo_credits | Number of credits remaining in the Brevo account per plan |
